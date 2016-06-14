@@ -1,6 +1,8 @@
 var express = require('express');
 const chalk = require('chalk');
 const swig = require('swig');
+const routes = require('./routes');
+
 var app = express();
 
 var locals = {
@@ -9,34 +11,34 @@ var locals = {
 };
 
 
+app.use('/', routes);
 
-
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   var str = req.method + ' ' + req.path + '\n';
   process.stdout.write(chalk.red(str));
   next();
-})
+})*/
 
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', __dirname+'/views');
 
-app.get('/', function(req,res) {
+/*app.get('/', function(req,res) {
   res.render('index', locals)
-});
+});*/
 
-app.use('/special/', function (req, res, next) {
+/*app.use('/special/', function (req, res, next) {
   res.send("You've reached the special area");
-});
+});*/
 
 /*app.get('/', function(req, res) {
   res.send("server is listening")
 });*/
 
 
-app.get('/news', function(req, res) {
+/*app.get('/news', function(req, res) {
   res.status(404).send("Page does not exist")
-});
+});*/
 
 app.listen(3000, function() {
   console.log("listener");
